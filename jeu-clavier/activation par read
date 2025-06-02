@@ -1,0 +1,9 @@
+if (!gameStarted) {
+    if (Serial.available() && Serial.read() == 'i') {
+      gameStarted = true;
+      display.clearDisplay();
+      display.display();
+    } else {
+      return;
+    }
+  }
