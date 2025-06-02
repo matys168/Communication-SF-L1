@@ -1,0 +1,28 @@
+#include <Wire.h>
+#include "kxtj3-1057.h"
+
+KXTJ3 kxtj3(0x0E);  
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin();
+
+  if (kxtj3.begin(25, 2)) {
+    Serial.println("Capteur KXTJ3 initialisé !");
+  } else {
+    Serial.println("Erreur d'initialisation du capteur !");
+    while (true);
+  }
+}
+
+void loop() {
+  float ax = kxtj3.axisAccel(X);
+  float ay = kxtj3.axisAccel(Y);
+  float az = kxtj3.axisAccel(Z);
+
+  Serial.print("X: "); Serial.print(ax, 4);
+  Serial.print(" | Y: "); Serial.print(ay, 4);
+  Serial.print(" | Z: "); Serial.println(az, 4);
+
+  delay(200);
+}
