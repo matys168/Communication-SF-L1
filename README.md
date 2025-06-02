@@ -1,0 +1,1 @@
+a travers les differents élements de mon github vous serez en mesure de comprendre entierement mon projet , comment il fonctionne quels ont été les obstacles rencontrés et surtout quels modifications du projet ont étée faites pour pouvoir le réaliser.
