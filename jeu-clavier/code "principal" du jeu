@@ -1,0 +1,55 @@
+if (vies == 0) {
+    display.clearDisplay();
+    display.setCursor(20, 25);
+    display.println("Game Over !");
+    display.setCursor(20, 40);
+    display.print("km/h faits :");
+    display.print(score);
+    display.display();
+    while (true);
+  }
+
+  
+  if (Serial.available()) {
+    char input = Serial.read();
+    if (input == 'i') voitureY -= 8;
+    if (input == 'k') voitureY += 8;
+  }
+
+  voitureY = constrain(voitureY, 20, SCREEN_HEIGHT - 10);
+
+  
+  obstacleX -= obstacleSpeed;
+  if (obstacleX < -10) {
+    obstacleX = SCREEN_WIDTH + random(20, 50);
+    obstacleY = random(20, SCREEN_HEIGHT - 10);
+  }
+
+  
+  if (abs(voitureX - obstacleX) < 10 && abs(voitureY - obstacleY) < 8) {
+    vies--;
+    display.clearDisplay();
+    display.setCursor(20, 25);
+    display.println("Oups, un accident..");
+    display.setCursor(0, 40);
+    display.print("Chances restantes : ");
+    display.print(vies);
+    display.display();
+    delay(2000);
+
+    voitureY = 50;
+    obstacleX = SCREEN_WIDTH;
+    return;
+  }
+
+  
+  if (millis() - lastUpdateTime > 400) {
+    score++;
+    lastUpdateTime = millis();
+
+    
+    if (score % 7 == 0 && score != lastSpeedIncreaseScore) {
+      obstacleSpeed += 3;
+      lastSpeedIncreaseScore = score;
+    }
+  }
