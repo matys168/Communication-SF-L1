@@ -1,0 +1,40 @@
+import serial
+import keyboard
+import time
+
+# Ouvre la connexion série
+try:
+    ser = serial.Serial('COM4', 115200, timeout=1)
+    print("go faut ecrire ")
+except Exception as e:
+    print("erreur", e)
+    exit()
+
+print("Appuie sur 'i' ou 'k'")
+
+try:
+    while True:
+        if keyboard.is_pressed('i'):
+            ser.write(b'i')
+            print("➡️ Envoyé : i")
+            while keyboard.is_pressed('i'):
+                pass  # attendre relâchement
+
+        elif keyboard.is_pressed('k'):
+            ser.write(b'k')
+            print("➡️ Envoyé : k")
+            while keyboard.is_pressed('k'):
+                pass
+
+        elif keyboard.is_pressed('esc'):
+            print("Fin")
+            break
+
+        time.sleep(0.01)
+
+except KeyboardInterrupt:
+    print("")
+
+finally:
+    ser.close()
+    print("")
