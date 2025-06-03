@@ -1,0 +1,25 @@
+float ay = kxtj3.axisAccel(Y);
+  if (ay > 0.02) voitureY -= 5;
+  else if (ay < -0.02) voitureY += 5;
+
+  voitureY = constrain(voitureY, 20, SCREEN_HEIGHT - 10);
+  obstacleX -= obstacleSpeed;
+  if (obstacleX < -10) {
+    obstacleX = SCREEN_WIDTH + random(20, 50);
+    obstacleY = random(20, SCREEN_HEIGHT - 10);
+  }
+  if (abs(voitureX - obstacleX) < 10 && abs(voitureY - obstacleY) < 8) {
+    vies--;
+    display.clearDisplay();
+    display.setCursor(20, 25);
+    display.println("Accident !");
+    display.setCursor(0, 40);
+    display.print("Chances restantes: ");
+    display.print(vies);
+    display.display();
+    delay(2000);
+
+    voitureY = 50;
+    obstacleX = SCREEN_WIDTH;
+    return;
+  }
