@@ -8,16 +8,17 @@ Matériels utilisés :
   - accéleromètre
   - breadboard
   - cables dupont
+  - Ordinateur
 
 BRANCHAGE :
 carte arduino | Ecran Oled
-vcc ------------> 3.3v
+VCC ------------> 3.3V
 GND ------------> GND
-sda ------------> sda
-scl ------------> scl
+SDA ------------> SDA
+SCL ------------> SCL
 
 
 résultat final :
-dans le sous dossier "résultat" vous pouvez visionner le résultat final une fois le code televersé sur la carte.
+  dans le sous dossier "résultat" vous pouvez visionner le résultat des branchements réalisés et de l'affichage sur l'ecran OLED du code televersé sur une carte.
 
 
