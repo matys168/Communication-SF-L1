@@ -1,4 +1,4 @@
-float ay = kxtj3.axisAccel(Y);
+  float ay = kxtj3.axisAccel(Y);
   if (ay > 0.02) voitureY -= 5;
   else if (ay < -0.02) voitureY += 5;
 
@@ -22,4 +22,8 @@ float ay = kxtj3.axisAccel(Y);
     voitureY = 50;
     obstacleX = SCREEN_WIDTH;
     return;
+  }
+  if (millis() - lastUpdateTime > 300) {  // score augmente plus vite
+    score++;
+    lastUpdateTime = millis();
   }
