@@ -23,7 +23,7 @@
     obstacleX = SCREEN_WIDTH;
     return;
   }
-  if (millis() - lastUpdateTime > 300) {  // score augmente plus vite
+  if (millis() - lastUpdateTime > 300) {
     score++;
     lastUpdateTime = millis();
   }
