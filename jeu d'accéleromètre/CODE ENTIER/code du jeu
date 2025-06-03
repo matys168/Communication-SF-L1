@@ -1,0 +1,108 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <kxtj3-1057.h>
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+KXTJ3 kxtj3(0x0E);
+
+int voitureX = 20;
+int voitureY = 50;
+int obstacleX = SCREEN_WIDTH;
+int obstacleY = 50;
+int obstacleSpeed = 5;
+int score = 0;
+int vies = 3;
+unsigned long lastUpdateTime = 0;
+bool gameStarted = false;
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin();
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("Échec de l’écran OLED"));
+    while (true);
+  }
+
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(10, 25);
+  display.println("Veuillez attacher");
+  display.setCursor(10, 35);
+  display.println("votre ceinture");
+  display.display();
+  delay(3000);
+
+  if (kxtj3.begin(25, 2)) {
+    Serial.println("KXTJ3 prêt !");
+  } else {
+    Serial.println("Erreur capteur !");
+    while (true);
+  }
+
+  display.clearDisplay();
+  display.display();
+  gameStarted = true;
+}
+
+void loop() {
+  if (!gameStarted) return;
+  if (vies == 0) {
+    display.clearDisplay();
+    display.setCursor(20, 25);
+    display.println("Game Over !");
+    display.setCursor(20, 40);
+    display.print("Score final: ");
+    display.print(score);
+    display.display();
+    while (true); 
+  }
+
+  float ay = kxtj3.axisAccel(Y);
+  if (ay > 0.02) voitureY -= 5;
+  else if (ay < -0.02) voitureY += 5;
+  voitureY = constrain(voitureY, 20, SCREEN_HEIGHT - 10);
+  obstacleX -= obstacleSpeed;
+  if (obstacleX < -10) {
+    obstacleX = SCREEN_WIDTH + random(20, 50);
+    obstacleY = random(20, SCREEN_HEIGHT - 10);
+  }
+  if (abs(voitureX - obstacleX) < 10 && abs(voitureY - obstacleY) < 8) {
+    vies--;
+    display.clearDisplay();
+    display.setCursor(20, 25);
+    display.println("Accident !");
+    display.setCursor(0, 40);
+    display.print("Chances restantes: ");
+    display.print(vies);
+    display.display();
+    delay(2000);
+
+    voitureY = 50;
+    obstacleX = SCREEN_WIDTH;
+    return;
+  }
+  if (millis() - lastUpdateTime > 300) {  
+    score++;
+    lastUpdateTime = millis();
+  }
+  display.clearDisplay();
+  display.drawLine(0, 60, SCREEN_WIDTH, 60, SSD1306_WHITE);
+  display.fillRect(voitureX, voitureY, 10, 5, SSD1306_WHITE);
+  display.fillCircle(voitureX + 2, voitureY + 6, 1, SSD1306_WHITE); // roue gauche
+  display.fillCircle(voitureX + 7, voitureY + 6, 1, SSD1306_WHITE); // roue droite
+  display.fillRect(obstacleX, obstacleY, 6, 6, SSD1306_WHITE);
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.print("Score: ");
+  display.print(score);
+  display.setCursor(80, 0);
+  display.print("Vies: ");
+  display.print(vies);
+
+  display.display();
+  delay(50);
+}
