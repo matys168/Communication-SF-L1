@@ -1,0 +1,16 @@
+  display.clearDisplay();
+  display.drawLine(0, 60, SCREEN_WIDTH, 60, SSD1306_WHITE);
+  display.fillRect(voitureX, voitureY, 10, 5, SSD1306_WHITE);
+  display.fillCircle(voitureX + 2, voitureY + 6, 1, SSD1306_WHITE); // roue gauche
+  display.fillCircle(voitureX + 7, voitureY + 6, 1, SSD1306_WHITE); // roue droite
+  display.fillRect(obstacleX, obstacleY, 6, 6, SSD1306_WHITE);
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.print("Score: ");
+  display.print(score);
+  display.setCursor(80, 0);
+  display.print("Vies: ");
+  display.print(vies);
+  display.display();
+  delay(50);
+}
