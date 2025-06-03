@@ -1,1 +1,1 @@
-a travers les differents élements de mon github vous serez en mesure de comprendre entierement mon projet , comment il fonctionne quels ont été les obstacles rencontrés et surtout quels modifications du projet ont étée faites pour pouvoir le réaliser.
+TRES IMPORTANT , il y'a deux sous-dossiers, le premier "jeu de clavier" contient tout les elements nécessaire pour que le jeu fonctionne avec le clavier , et le second pour qu'il fonctionne avec l'accélerometre de la carte RFThingsUCA.
