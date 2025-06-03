@@ -1,0 +1,21 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <kxtj3-1057.h>
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+KXTJ3 kxtj3(0x0E);
+
+int voitureX = 20;
+int voitureY = 50;
+int obstacleX = SCREEN_WIDTH;
+int obstacleY = 50;
+int obstacleSpeed = 5;  // Augmentation de la vitesse de l'obstacle
+
+int score = 0;
+int vies = 3;
+unsigned long lastUpdateTime = 0;
+bool gameStarted = false;
