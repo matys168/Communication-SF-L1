@@ -13,7 +13,7 @@ int voitureX = 20;
 int voitureY = 50;
 int obstacleX = SCREEN_WIDTH;
 int obstacleY = 50;
-int obstacleSpeed = 5;  // Augmentation de la vitesse de l'obstacle
+int obstacleSpeed = 5;
 
 int score = 0;
 int vies = 3;
